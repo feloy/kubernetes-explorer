@@ -1,9 +1,9 @@
 <app-navigation appname="Kubernetes Explorer" menuname="Namespaces">
   <div class="menu">
-    <a mat-list-item href="#">Link 1</a>
-    <a mat-list-item href="#">Link 2</a>
-    <a mat-list-item href="#">Link 3</a>
-    <a mat-list-item href="#">Link 4</a>
+    <a mat-list-item *ngFor="let namespace of namespaces | async"
+      [routerLink]="['/ns', namespace.metadata.name]">{{namespace.metadata.name}}</a>
   </div>
-  <div class="content">A content</div>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
 </app-navigation>
