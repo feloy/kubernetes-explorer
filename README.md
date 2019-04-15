@@ -15,4 +15,10 @@ $ kubectl proxy -w dist/k8s/ -P / --api-prefix=/k/
 ```
 
 You can now visit http://localhost:8001 with your browser.
- 
+
+You can create or delete namespaces to see the effect in the seidebar content:
+
+```
+$ kubectl create namespace foo
+$ kubectl delete namespace foo
+```
