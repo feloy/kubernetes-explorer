@@ -13,6 +13,6 @@ export class AppComponent implements OnInit {
   constructor(private kube: KubernetesService) {}
 
   ngOnInit() {
-    this.namespaces = this.kube.listNamespaces();
+    this.namespaces = this.kube.watchNamespaces();
   }
 }

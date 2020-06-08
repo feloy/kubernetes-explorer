@@ -41,11 +41,25 @@ export class KubernetesService {
           if (event.type === HttpEventType.DownloadProgress) {
             const partialText: string = event['partialText'];
             const newText = partialText.substr(previousLen);
-            previousLen = partialText.length;
             const lines = newText.split("\n");
-            return lines
+            var fail = false;
+            const result = lines
               .filter(str => str.length > 0)
+              .filter(str => {
+                try {
+                  JSON.parse(str);
+                  return true;
+                } catch (e) {
+                  fail = true;
+                  return false;
+                }
+              })
               .map(str => JSON.parse(str));
+            if (!fail) {
+              previousLen = partialText.length;
+              return result;
+            }
+            return [];
           }
         }),
         map((watchEvents: WatchEvent<Namespace>[]) => {
